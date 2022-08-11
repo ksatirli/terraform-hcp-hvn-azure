@@ -1,0 +1,3 @@
+# HCP access credentials; these may also be set on the HCP Provider directly
+export HCP_CLIENT_ID="..."
+export HCP_CLIENT_SECRET="..."
