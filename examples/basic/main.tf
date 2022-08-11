@@ -23,10 +23,12 @@ resource "azurerm_route_table" "main" {
   location            = azurerm_resource_group.main.location
 }
 
-resource "azurerm_network_security_group" "main" {
+# Set up DDoS plan; note that Azure limits the amount of plans to one per region
+# see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_ddos_protection_plan
+resource "azurerm_network_ddos_protection_plan" "main" {
+  location            = azurerm_resource_group.main.location
   name                = local.identifier
   resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
 }
 
 # create virtual network for use with the HVN
@@ -40,8 +42,20 @@ resource "azurerm_virtual_network" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
+  # see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network#ddos_protection_plan
+  ddos_protection_plan {
+    id     = azurerm_network_ddos_protection_plan.main.id
+    enable = true
+  }
+
   # ⚠️ This example does not include a security group configuration
   # and may therefore not meet your organization's security posture.
+}
+
+resource "azurerm_network_security_group" "main" {
+  name                = local.identifier
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
 }
 
 # see https://registry.terraform.io/modules/ksatirli/hvn-azure/hcp/
