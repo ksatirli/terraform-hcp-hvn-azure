@@ -1,10 +1,10 @@
-variable "azure_environment" {
+variable "environment" {
   type        = string
   description = "The Cloud Environment which should be used."
   default     = "public"
 }
 
-variable "azure_region" {
+variable "location" {
   type        = string
   description = "The Azure region in which to operate"
   default     = "westus2"

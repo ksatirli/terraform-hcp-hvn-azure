@@ -14,7 +14,7 @@ data "azurerm_subscription" "main" {
 # see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group
 resource "azurerm_resource_group" "main" {
   name     = local.identifier
-  location = var.azure_region
+  location = var.location
 }
 
 resource "azurerm_route_table" "main" {
@@ -41,16 +41,16 @@ resource "azurerm_virtual_network" "main" {
   resource_group_name = azurerm_resource_group.main.name
 
   # ⚠️ This example does not include a security group configuration
-  # and may therefore not meet your organization's securiy posture.
+  # and may therefore not meet your organization's security posture.
 }
 
 # see https://registry.terraform.io/modules/ksatirli/hvn-azure/hcp/
 module "hvn_azure" {
   source = "../.."
 
-  identifier          = "azure-${var.azure_region}"
+  identifier          = "azure-${var.location}"
   cidr_block          = "172.25.16.0/20"
-  region              = var.azure_region
+  region              = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   routing_table_cidrs = var.routing_table_cidrs
   subscription_id     = data.azurerm_subscription.main.subscription_id
