@@ -19,6 +19,8 @@ This Terraform Module provisions a HashiCorp Virtual Network for use with Micros
 
 ## Usage
 
+For examples, see the [./examples](https://github.com/ksatirli/terraform-hcp-hvn-azure/tree/main/examples/) directory.
+
 <!-- BEGIN_TF_DOCS -->
 ### Inputs
 
