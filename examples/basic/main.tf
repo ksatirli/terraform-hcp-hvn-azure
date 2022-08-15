@@ -24,6 +24,7 @@ resource "azurerm_route_table" "main" {
 }
 
 # Set up DDoS plan; note that Azure limits the amount of plans to one per region
+# Enabling DDoS protection results in meeting Best Practices as defined by Snyk: https://snyk.io/security-rules/SNYK-CC-AZURE-516
 # see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_ddos_protection_plan
 resource "azurerm_network_ddos_protection_plan" "main" {
   location            = azurerm_resource_group.main.location
@@ -42,6 +43,7 @@ resource "azurerm_virtual_network" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
+  # Enabling DDoS protection results in meeting Best Practices as defined by Snyk: https://snyk.io/security-rules/SNYK-CC-AZURE-516
   # see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network#ddos_protection_plan
   ddos_protection_plan {
     id     = azurerm_network_ddos_protection_plan.main.id

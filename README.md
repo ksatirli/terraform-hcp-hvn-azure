@@ -17,6 +17,10 @@ This Terraform Module provisions a HashiCorp Virtual Network for use with Micros
 * Azure [Account](https://azure.microsoft.com/)
 * Terraform `1.2.x` or newer.
 
+> **Warning**
+> Ensure that the Azure account that Terraform uses has the required API permissions to manage the full lifecycle of AD Service Principal creation.
+> An AD Service Principal with insufficient rights (e.g.: `Application.ReadWrite.All`) may result in HVN creation not completing successfully.
+
 ## Usage
 
 For examples, see the [./examples](https://github.com/ksatirli/terraform-hcp-hvn-azure/tree/main/examples/) directory.
