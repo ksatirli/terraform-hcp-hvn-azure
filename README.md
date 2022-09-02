@@ -4,12 +4,16 @@ This Terraform Module provisions a HashiCorp Virtual Network for use with Micros
 
 ## Table of Contents
 
-- [HashiCorp Cloud Platform: HVN for Azure](#hashicorp-cloud-platform-hvn-for-azure)
-  - [Table of Contents](#table-of-contents)
-  - [Requirements](#requirements)
-  - [Usage](#usage)
-  - [Author Information](#author-information)
-  - [License](#license)
+<!-- TOC -->
+* [HashiCorp Cloud Platform: HVN for Azure](#hashicorp-cloud-platform--hvn-for-azure)
+  * [Table of Contents](#table-of-contents)
+  * [Requirements](#requirements)
+  * [Usage](#usage)
+    * [Inputs](#inputs)
+    * [Outputs](#outputs)
+  * [Author Information](#author-information)
+  * [License](#license)
+<!-- TOC -->
 
 ## Requirements
 
