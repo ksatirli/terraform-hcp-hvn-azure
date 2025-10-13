@@ -38,10 +38,11 @@ For examples, see the [./examples](https://github.com/ksatirli/terraform-hcp-hvn
 | identifier | The ID of the HashiCorp Virtual Network (HVN). | `string` | n/a | yes |
 | region | Azure Region to deploy HVN in. | `string` | n/a | yes |
 | resource_group_name | The resource group name of the peer VNet in Azure. | `string` | n/a | yes |
-| routing_table_cidrs | List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. | <pre>list(object({<br>    name = string<br>    cidr = string<br>  }))</pre> | n/a | yes |
+| routing_table_cidrs | List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. | <pre>list(object({<br/>    name = string<br/>    cidr = string<br/>  }))</pre> | n/a | yes |
 | subscription_id | The subscription ID of the peer VNet in Azure. | `string` | n/a | yes |
 | tenant_id | The tenant ID of the peer VNet in Azure. | `string` | n/a | yes |
 | vnet_name | The name of the peer VNet in Azure. | `string` | n/a | yes |
+| hcp_base_url | The base URL for HashiCorp Cloud Platform. | `string` | `"https://cloud.hashicorp.com"` | no |
 
 ### Outputs
 

@@ -1,3 +1,9 @@
+variable "hcp_base_url" {
+  type        = string
+  description = "The base URL for HashiCorp Cloud Platform."
+  default     = "https://cloud.hashicorp.com"
+}
+
 variable "region" {
   type        = string
   description = "Azure Region to deploy HVN in."

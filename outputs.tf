@@ -29,9 +29,8 @@ output "hcp_hvn_route" {
 }
 
 locals {
-  base_url = "https://portal.cloud.hashicorp.com"
   org_id   = hcp_hvn.main.organization_id
-  hvn_url  = "${local.base_url}/orgs/${local.org_id}/projects/${hcp_hvn.main.project_id}/hvns/${hcp_hvn.main.hvn_id}"
+  hvn_url  = "${var.hcp_base_url}/orgs/${local.org_id}/projects/${hcp_hvn.main.project_id}/hvns/${hcp_hvn.main.hvn_id}"
 }
 
 output "portal_hvn_overview_url" {
