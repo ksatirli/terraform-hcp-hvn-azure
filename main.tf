@@ -26,7 +26,7 @@ locals {
 # create Active Directory Service Principal for HVN
 # see https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal
 resource "azuread_service_principal" "main" {
-  application_id = hcp_azure_peering_connection.main.application_id
+  client_id = hcp_azure_peering_connection.main.application_id
 }
 
 # manage role definition for Service Principal
