@@ -1,7 +1,7 @@
 # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/module-inspection.md
 config {
-  module = false
-  force  = false
+  call_module_type = "local"
+  force            = false
 }
 
 plugin "azurerm" {
