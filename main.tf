@@ -70,7 +70,7 @@ resource "azurerm_role_assignment" "role_assignment" {
 # data "hcp_azure_peering_connection" "main" {
 #   hvn_link              = hcp_hvn.main.self_link
 #   peering_id            = hcp_azure_peering_connection.main.peering_id
-#   wait_for_active_state = false # TODO: set to `true` if you want to wait for `ACTIVE` state
+#   wait_for_active_state = false
 # }
 
 # create route for HVN
