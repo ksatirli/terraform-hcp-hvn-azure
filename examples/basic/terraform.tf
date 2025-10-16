@@ -16,7 +16,7 @@ terraform {
     # see https://registry.terraform.io/providers/hashicorp/hcp/0.110.0/
     hcp = {
       source  = "hashicorp/hcp"
-      version = "0.110.0, < 1.0.0"
+      version = ">= 0.110.0, < 1.0.0"
     }
   }
 
