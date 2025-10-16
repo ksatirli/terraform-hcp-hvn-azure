@@ -1,3 +1,9 @@
+variable "allow_forwarded_traffic" {
+  type        = bool
+  description = "Whether to allow forwarded traffic from the HVN to the peer VNet."
+  default     = false
+}
+
 variable "region" {
   type        = string
   description = "Azure Region to deploy HVN in."
@@ -54,4 +60,10 @@ variable "tenant_id" {
 variable "vnet_name" {
   type        = string
   description = "The name of the peer VNet in Azure."
+}
+
+variable "use_remote_gateways" {
+  type        = bool
+  description = "Whether to use remote gateways for the peering connection."
+  default     = false
 }

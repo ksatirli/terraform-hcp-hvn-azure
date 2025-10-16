@@ -42,6 +42,8 @@ For examples, see the [./examples](https://github.com/ksatirli/terraform-hcp-hvn
 | subscription_id | The subscription ID of the peer VNet in Azure. | `string` | n/a | yes |
 | tenant_id | The tenant ID of the peer VNet in Azure. | `string` | n/a | yes |
 | vnet_name | The name of the peer VNet in Azure. | `string` | n/a | yes |
+| allow_forwarded_traffic | Whether to allow forwarded traffic from the HVN to the peer VNet. | `bool` | `false` | no |
+| use_remote_gateways | Whether to use remote gateways for the peering connection. | `bool` | `false` | no |
 
 ### Outputs
 
@@ -53,9 +55,6 @@ For examples, see the [./examples](https://github.com/ksatirli/terraform-hcp-hvn
 | hcp_azure_peering_connection | Exported Attributes for `hcp_azure_peering_connection`. |
 | hcp_hvn | Exported Attributes for `hcp_hvn`. |
 | hcp_hvn_route | Exported Attributes for `hcp_hvn_route`. |
-| portal_hvn_overview_url | HashiCorp Cloud Platform HVN Overview URL. |
-| portal_hvn_peering_url | HashiCorp Cloud Platform HVN Peering URL. |
-| portal_hvn_route_table_url | HashiCorp Cloud Platform HVN Route Table URL. |
 <!-- END_TF_DOCS -->
 
 ## Author Information
