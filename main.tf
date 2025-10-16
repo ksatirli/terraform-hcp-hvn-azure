@@ -9,6 +9,7 @@ resource "hcp_hvn" "main" {
 # establish a peering connection between the VPC and HVN
 # see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/azure_peering_connection
 resource "hcp_azure_peering_connection" "main" {
+  allow_forwarded_traffic  = var.allow_forwarded_traffic
   hvn_link                 = hcp_hvn.main.self_link
   peering_id               = var.identifier
   peer_resource_group_name = var.resource_group_name
@@ -16,20 +17,13 @@ resource "hcp_azure_peering_connection" "main" {
   peer_tenant_id           = var.tenant_id
   peer_vnet_name           = var.vnet_name
   peer_vnet_region         = var.region
+  use_remote_gateways      = var.use_remote_gateways
 }
-
-# wait for previous resource (`hcp_azure_peering_connection`) to become active, before continuing operations using data source
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/azure_peering_connection
-# data "hcp_azure_peering_connection" "main" {
-#   hvn_link              = hcp_hvn.main.self_link
-#   peering_id            = hcp_azure_peering_connection.main.peering_id
-#   wait_for_active_state = false # TODO: set to `true` if you want to wait for `ACTIVE` state
-# }
 
 locals {
   client_id = hcp_azure_peering_connection.main.application_id
 
-  role_identifier =  join("-", [
+  role_identifier = join("-", [
     "hcp-hvn-peering-access",
     local.client_id
   ])
@@ -54,6 +48,7 @@ resource "azurerm_role_definition" "main" {
 
   permissions {
     actions = [
+      "Microsoft.Network/virtualNetworks/read",
       "Microsoft.Network/virtualNetworks/peer/action",
       "Microsoft.Network/virtualNetworks/virtualNetworkPeerings/read",
       "Microsoft.Network/virtualNetworks/virtualNetworkPeerings/write",
@@ -72,11 +67,12 @@ resource "azurerm_role_assignment" "role_assignment" {
 
 # wait for previous resource (`hcp_azure_peering_connection`) to become active, before continuing operations using data source
 # see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/azure_peering_connection
-data "hcp_azure_peering_connection" "main" {
-  hvn_link              = hcp_hvn.main.self_link
-  peering_id            = hcp_azure_peering_connection.main.peering_id
-  wait_for_active_state = true
-}
+# data "hcp_azure_peering_connection" "main" {
+#   hvn_link              = hcp_hvn.main.self_link
+#   peering_id            = hcp_azure_peering_connection.main.peering_id
+#   wait_for_active_state = false # TODO: set to `true` if you want to wait for `ACTIVE` state
+# }
+
 # create route for HVN
 # see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/hvn_route
 resource "hcp_hvn_route" "main" {
@@ -88,6 +84,5 @@ resource "hcp_hvn_route" "main" {
   hvn_link         = hcp_hvn.main.self_link
   hvn_route_id     = "${var.identifier}-${each.key}"
   destination_cidr = each.value.cidr
-  target_link      = data.hcp_azure_peering_connection.main.self_link
+  target_link      = hcp_azure_peering_connection.main.self_link
 }
-# }
