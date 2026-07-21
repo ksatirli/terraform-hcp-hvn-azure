@@ -46,14 +46,14 @@ Setting `create_peering = true` (the default) without one of `resource_group_nam
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | cidr_block | The CIDR range of the HVN. | `string` | n/a | yes |
 | identifier | The ID of the HashiCorp Virtual Network (HVN). | `string` | n/a | yes |
 | region | Azure Region to deploy HVN in. | `string` | n/a | yes |
 | allow_forwarded_traffic | Whether to allow forwarded traffic from the HVN to the peer VNet. | `bool` | `false` | no |
 | create_peering | Whether to create an Azure VNet peering connection, its Service Principal, Role Definition, Role Assignment, and HVN routes. Set to `false` to provision a standalone HVN with no Azure connectivity (for example, when the HVN backs a cluster reached over a public endpoint). When `false`, `resource_group_name`, `routing_table_cidrs`, `subscription_id`, `tenant_id`, and `vnet_name` are ignored. | `bool` | `true` | no |
 | resource_group_name | The resource group name of the peer VNet in Azure. Required when `create_peering` is `true`. | `string` | `null` | no |
-| routing_table_cidrs | List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. Ignored when `create_peering` is `false`. | <pre>list(object({<br/>    name = string<br/>    cidr = string<br/>  }))</pre> | `[]` | no |
+| routing_table_cidrs | List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. Ignored when `create_peering` is `false`. | <pre>list(object({<br>    name = string<br>    cidr = string<br>  }))</pre> | `[]` | no |
 | subscription_id | The subscription ID of the peer VNet in Azure. Required when `create_peering` is `true`. | `string` | `null` | no |
 | tenant_id | The tenant ID of the peer VNet in Azure. Required when `create_peering` is `true`. | `string` | `null` | no |
 | use_remote_gateways | Whether to use remote gateways for the peering connection. | `bool` | `false` | no |
@@ -62,7 +62,7 @@ Setting `create_peering = true` (the default) without one of `resource_group_nam
 ### Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | azuread_service_principal | Azure AD Service Principal for the HVN peering. `null` when `create_peering` is `false`. |
 | azurerm_role_assignment | Azure Role Assignment for the HVN Service Principal. `null` when `create_peering` is `false`. |
 | azurerm_role_definition | Azure Role Definition for the HVN Service Principal. `null` when `create_peering` is `false`. |
