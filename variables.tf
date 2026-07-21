@@ -47,15 +47,14 @@ variable "resource_group_name" {
 }
 
 variable "routing_table_cidrs" {
-  default  = []
-  nullable = false
+  default     = []
+  description = "List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. Ignored when `create_peering` is `false`."
+  nullable    = false
 
   type = list(object({
     name = string
     cidr = string
   }))
-
-  description = "List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. Ignored when `create_peering` is `false`."
 }
 
 variable "subscription_id" {

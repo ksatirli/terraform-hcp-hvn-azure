@@ -23,7 +23,7 @@ locals {
   ]
 }
 
-resource "terraform_data" "peering_precondition" {
+resource "terraform_data" "main" {
   count = var.create_peering ? 1 : 0
 
   lifecycle {
