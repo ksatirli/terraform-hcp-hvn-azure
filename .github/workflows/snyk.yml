@@ -25,6 +25,9 @@ jobs:
           - "./examples/consul-cluster/main.tf"
           - "./examples/consul-cluster/terraform.tf"
 
+          - "./examples/hvn-only/main.tf"
+          - "./examples/hvn-only/terraform.tf"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3

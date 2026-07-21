@@ -33,33 +33,49 @@ variable "cidr_block" {
   description = "The CIDR range of the HVN."
 }
 
+variable "create_peering" {
+  default     = true
+  description = "Whether to create an Azure VNet peering connection, its Service Principal, Role Definition, Role Assignment, and HVN routes. Set to `false` to provision a standalone HVN with no Azure connectivity (for example, when the HVN backs a cluster reached over a public endpoint). When `false`, `resource_group_name`, `routing_table_cidrs`, `subscription_id`, `tenant_id`, and `vnet_name` are ignored."
+  type        = bool
+}
+
 variable "resource_group_name" {
+  default     = null
+  description = "The resource group name of the peer VNet in Azure. Required when `create_peering` is `true`."
+  nullable    = true
   type        = string
-  description = "The resource group name of the peer VNet in Azure."
 }
 
 variable "routing_table_cidrs" {
+  default     = []
+  description = "List of Objects containing Name and CIDR for (multiple) HVN Routing Tables. Ignored when `create_peering` is `false`."
+  nullable    = false
+
   type = list(object({
     name = string
     cidr = string
   }))
-
-  description = "List of Objects containing Name and CIDR for (multiple) HVN Routing Tables."
 }
 
 variable "subscription_id" {
+  default     = null
+  description = "The subscription ID of the peer VNet in Azure. Required when `create_peering` is `true`."
+  nullable    = true
   type        = string
-  description = "The subscription ID of the peer VNet in Azure."
 }
 
 variable "tenant_id" {
+  default     = null
+  description = "The tenant ID of the peer VNet in Azure. Required when `create_peering` is `true`."
+  nullable    = true
   type        = string
-  description = "The tenant ID of the peer VNet in Azure."
 }
 
 variable "vnet_name" {
+  default     = null
+  description = "The name of the peer VNet in Azure. Required when `create_peering` is `true`."
+  nullable    = true
   type        = string
-  description = "The name of the peer VNet in Azure."
 }
 
 variable "use_remote_gateways" {
