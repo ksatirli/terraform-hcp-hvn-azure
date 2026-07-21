@@ -23,17 +23,6 @@ locals {
   ]
 }
 
-resource "terraform_data" "main" {
-  count = var.create_peering ? 1 : 0
-
-  lifecycle {
-    precondition {
-      condition     = length(local.missing_peering_inputs) == 0
-      error_message = "create_peering is true but these inputs are null: ${join(", ", local.missing_peering_inputs)}. Set them, or set create_peering = false."
-    }
-  }
-}
-
 # establish a peering connection between the VPC and HVN
 # see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/azure_peering_connection
 resource "hcp_azure_peering_connection" "main" {
@@ -48,6 +37,17 @@ resource "hcp_azure_peering_connection" "main" {
   peer_vnet_name           = var.vnet_name
   peer_vnet_region         = var.region
   use_remote_gateways      = var.use_remote_gateways
+
+  # Attached here rather than to a standalone resource so the check is
+  # guaranteed to run when this resource is planned. A separate resource has no
+  # dependency edge to this one, so Terraform could plan them in either order
+  # and surface a raw null error instead of this message.
+  lifecycle {
+    precondition {
+      condition     = length(local.missing_peering_inputs) == 0
+      error_message = "create_peering is true but these inputs are null: ${join(", ", local.missing_peering_inputs)}. Set them, or set create_peering = false."
+    }
+  }
 }
 
 locals {
