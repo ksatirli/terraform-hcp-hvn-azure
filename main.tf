@@ -23,7 +23,7 @@ locals {
   ]
 }
 
-# establish a peering connection between the VPC and HVN
+# establish a peering connection between the VNet and HVN
 # see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/resources/azure_peering_connection
 resource "hcp_azure_peering_connection" "main" {
   count = var.create_peering ? 1 : 0

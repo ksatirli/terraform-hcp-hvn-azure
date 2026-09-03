@@ -5,7 +5,7 @@ provider "azuread" {
 }
 
 
-# The HCP Provider is set to retrieve configuration from the executing environment
+# The AzureRM provider is set to retrieve configuration from the executing environment
 # see https://registry.terraform.io/providers/hashicorp/azurerm/4.58.0/docs#example-usage
 provider "azurerm" {
   environment = var.environment
