@@ -27,7 +27,7 @@ variable "identifier" {
   description = "The ID of the HashiCorp Virtual Network (HVN)."
 }
 
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/hvn
+# see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/resources/hvn
 variable "cidr_block" {
   type        = string
   description = "The CIDR range of the HVN."
