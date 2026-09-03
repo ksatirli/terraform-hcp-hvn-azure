@@ -1,3 +1,6 @@
 /examples/*/.envrc
 /examples/*/.terraform/
 /examples/*/terraform.tfstate*
+
+# Terraform working directory (provider symlinks, module cache)
+.terraform/
