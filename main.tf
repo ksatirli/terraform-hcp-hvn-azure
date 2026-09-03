@@ -1,4 +1,4 @@
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/hvn
+# see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/resources/hvn
 resource "hcp_hvn" "main" {
   hvn_id         = var.identifier
   cloud_provider = "azure"
@@ -24,7 +24,7 @@ locals {
 }
 
 # establish a peering connection between the VPC and HVN
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/azure_peering_connection
+# see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/resources/azure_peering_connection
 resource "hcp_azure_peering_connection" "main" {
   count = var.create_peering ? 1 : 0
 
@@ -62,7 +62,7 @@ locals {
 }
 
 # create Active Directory Service Principal for HVN
-# see https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal
+# see https://registry.terraform.io/providers/hashicorp/azuread/3.9.0/docs/resources/service_principal
 resource "azuread_service_principal" "main" {
   count = var.create_peering ? 1 : 0
 
@@ -91,7 +91,7 @@ resource "azurerm_role_definition" "main" {
 }
 
 # assign role definition to Service Principal
-# see https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment
+# see https://registry.terraform.io/providers/hashicorp/azurerm/4.58.0/docs/resources/role_assignment
 resource "azurerm_role_assignment" "role_assignment" {
   count = var.create_peering ? 1 : 0
 
@@ -102,7 +102,7 @@ resource "azurerm_role_assignment" "role_assignment" {
 }
 
 # wait for previous resource (`hcp_azure_peering_connection`) to become active, before continuing operations using data source
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/azure_peering_connection
+# see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/data-sources/azure_peering_connection
 # data "hcp_azure_peering_connection" "main" {
 #   hvn_link              = hcp_hvn.main.self_link
 #   peering_id            = hcp_azure_peering_connection.main.peering_id
@@ -110,7 +110,7 @@ resource "azurerm_role_assignment" "role_assignment" {
 # }
 
 # create route for HVN
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/hvn_route
+# see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/resources/hvn_route
 resource "hcp_hvn_route" "main" {
   for_each = var.create_peering ? {
     for cidr in var.routing_table_cidrs :

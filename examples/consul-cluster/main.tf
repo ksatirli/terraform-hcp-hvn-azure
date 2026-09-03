@@ -4,7 +4,7 @@ module "basic" {
   source = "../basic"
 }
 
-# see https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/consul_cluster
+# see https://registry.terraform.io/providers/hashicorp/hcp/0.114.0/docs/resources/consul_cluster
 resource "hcp_consul_cluster" "main" {
   cluster_id = "consul-cluster"
   hvn_id     = module.basic.hcp_hvn.hvn_id
